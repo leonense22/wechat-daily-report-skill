@@ -23,8 +23,14 @@ playwright install chromium
 
 ## 🚀 使用流程
 
-### 第一步：手动安装
+### 第一步：安装 Skill
 
+**自动安装 (推荐)**:
+```bash
+npx skills add https://github.com/ADVISORYDZ/wechat-daily-report-skill
+```
+
+**手动安装**:
 克隆本仓库到您的 Claude Skills 目录（如果目录不存在请先创建）：
 
 ```bash
