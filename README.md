@@ -23,49 +23,30 @@ playwright install chromium
 
 ## 🚀 使用流程
 
-整个生成过程分为三个步骤：分析 -> AI 生成 -> 图片渲染。
+### 第一步：手动安装
 
-### 1. 分析聊天记录
-
-使用 `analyze_chat.py` 对原始聊天记录 JSON 进行初步清洗和统计。推荐使用 [WeFlow](https://github.com/hicccc77/WeFlow) 项目导出的 **ChatLab** 格式数据。
+克隆本仓库到您的 Claude Skills 目录（如果目录不存在请先创建）：
 
 ```bash
-python scripts/analyze_chat.py <your_chat_log.json> --output-stats stats.json --output-text simplified_chat.txt
+cd ~/.claude/skills/
+git clone https://github.com/ADVISORYDZ/wechat-daily-report-skill.git
 ```
 
-**输入**:
-- `<your_chat_log.json>`: 符合格式要求的聊天记录文件 (见下文数据格式)。
+### 第二步：获取聊天记录
 
-**输出**:
-- `stats.json`: 统计数据文件。
-- `simplified_chat.txt`: 清洗后的纯文本聊天记录，用于投喂给 AI。
+使用 [WeFlow](https://github.com/hicccc77/WeFlow) 工具导出您想要分析的微信群聊天记录，选择 **ChatLab** 格式导出。
 
-### 2. AI 生成内容
+### 第三步：基本使用
 
-这一步需要将上一步生成的 `simplified_chat.txt` 内容提供给 AI (如 ChatGPT, Claude, Gemini)，并要求其按照 `references/ai_prompt.md` 中的提示词和格式生成 JSON 数据。
+在 Claude Code 中直接对 Claude 下达指令：
 
-**操作指南**:
-1. 打开 `references/ai_prompt.md` 复制提示词。
-2. 将提示词和 `simplified_chat.txt` 的内容发送给 AI。
-3. 将 AI 返回的 JSON 内容保存为 `ai_content.json`。
+> **“生成 [群名称] 今日日报”**
 
-**AI 生成内容包括**:
-- 话题摘要 (Topics)
-- 资源分享 (Resources)
-- 有趣对话 (Dialogues)
-- 问答精选 (Q&A)
-- 成员画像标签 (Talker Profiles)
+Claude 将自动调用本项目中的脚本，分析聊天记录并渲染出精美的日报长图。
 
-### 3. 生成日报图片
+---
 
-使用 `generate_report.py` 将统计数据和 AI 内容合并渲染为图片。
-
-```bash
-python scripts/generate_report.py --stats stats.json --ai-content ai_content.json --output report.png
-```
-
-**输出**:
-- `report.png`: 最终生成的日报图片。
+## 🛠️ 详细步骤 (内部逻辑)
 
 ## 📂 数据格式
 
