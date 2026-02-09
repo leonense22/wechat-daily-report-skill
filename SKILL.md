@@ -44,10 +44,12 @@ AI 需要生成的内容包括：
 ### 3. 生成日报图片
 
 ```bash
-python scripts/generate_report.py --stats stats.json --ai-content ai_content.json --output report.png
+python scripts/generate_report.py --stats stats.json --ai-content ai_content.json --output report.png --clean-temp
 ```
 
 > ✅ 输出后缀必须是 `.png`，使用 iPhone 14 Pro Max 分辨率 (430x932 @3x)
+> 
+> 使用 `--clean-temp` 参数可在生成完成后自动删除临时文件（stats.json、ai_content.json、simplified_chat.txt、临时 HTML）
 > 
 > 图片生成需要安装 playwright：`pip install playwright && playwright install chromium`
 
@@ -61,12 +63,13 @@ python scripts/generate_report.py --stats stats.json --ai-content ai_content.jso
     "type": "group"
   },
   "members": [
-    {"platformId": "xxx", "accountName": "昵称"}
+    {"platformId": "xxx", "accountName": "昵称", "groupNickname": "群昵称"}
   ],
   "messages": [
     {
       "sender": "platformId",
       "accountName": "昵称",
+      "groupNickname": "群昵称",
       "timestamp": 1234567890,
       "type": 0,
       "content": "消息内容"
@@ -75,9 +78,12 @@ python scripts/generate_report.py --stats stats.json --ai-content ai_content.jso
 }
 ```
 
+> 💡 显示名称优先级：`groupNickname` > `accountName`
+
 **消息类型 (type)**:
-- `0`: 纯文本（脚本和 AI 只分析此类型）
+- `0`: 纯文本（脚本和 AI 分析此类型）
 - `1`: 图片
+- `2`: 语音转文字（脚本和 AI 分析此类型，内容格式：`[语音转文字] xxx`）
 - `5`: 动画表情
 - `99`: 系统消息
 

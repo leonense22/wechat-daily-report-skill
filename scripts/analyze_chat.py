@@ -35,6 +35,11 @@ def format_timestamp(ts):
 def get_message_hour(ts):
     return datetime.datetime.fromtimestamp(ts).hour
 
+def get_display_name(msg):
+    """获取用户显示名称，优先使用 groupNickname，否则使用 accountName"""
+    return msg.get('groupNickname') or msg.get('accountName') or 'Unknown'
+
+
 def is_night_time(hour):
     # 23:00 - 06:00
     return hour >= 23 or hour < 6
@@ -93,11 +98,11 @@ def analyze(args):
     # Basic Stats
     total_messages = len(messages)
     
-    # Filter text messages (type 0)
-    text_messages = [m for m in messages if m['type'] == 0]
+    # Filter text messages (type 0: 纯文本, type 2: 语音转文字)
+    text_messages = [m for m in messages if m['type'] in (0, 2)]
     
-    # Active Users (using accountName if available, else sender ID)
-    active_users = set(m['accountName'] for m in messages)
+    # Active Users (优先使用 groupNickname)
+    active_users = set(get_display_name(m) for m in messages)
     
     # Time Range
     timestamps = [m['timestamp'] for m in messages]
@@ -110,7 +115,7 @@ def analyze(args):
         date_str = datetime.datetime.now().strftime('%Y-%m-%d')
 
     # --- Talkative List (Top 3) ---
-    user_msg_counts = Counter(m['accountName'] for m in messages)
+    user_msg_counts = Counter(get_display_name(m) for m in messages)
     top_talkers_tuple = user_msg_counts.most_common(3)
     
     top_talkers = []
@@ -126,7 +131,7 @@ def analyze(args):
     # 统计每个话唠的常用词
     talker_all_text = defaultdict(list)
     for m in text_messages:
-        name = m.get('accountName')
+        name = get_display_name(m)
         if name in top_talker_names:
             talker_all_text[name].append(m['content'])
     
@@ -157,7 +162,7 @@ def analyze(args):
             # 23:00 -> 0, 00:00 -> 60, ... 05:59 -> highest
             minutes_from_23 = (h - 23 if h >= 23 else h + 1) * 60 + dt.minute
             candidates.append({
-                "name": m.get('accountName'),
+                "name": get_display_name(m),
                 "time": dt.strftime('%H:%M'),
                 "lateness": minutes_from_23,
                 "content": m.get('content', ''),
@@ -212,7 +217,11 @@ def analyze(args):
         m = text_messages[idx]
         dt = datetime.datetime.fromtimestamp(m['timestamp'])
         time_str = dt.strftime('%H:%M')
-        line = f"[{time_str}] {m.get('accountName', 'Unknown')}: {m['content']}"
+        # 去除 [语音转文字] 前缀
+        content = m['content']
+        if content.startswith('[语音转文字] '):
+            content = content[7:]  # len('[语音转文字] ') = 7
+        line = f"[{time_str}] {get_display_name(m)}: {content}"
         simplified_lines.append(line)
 
     # --- Output ---

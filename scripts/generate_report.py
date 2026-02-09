@@ -38,7 +38,19 @@ def parse_arguments():
     parser.add_argument('--ai-content', required=False, default=None, help='Path to AI-generated content JSON (optional)')
     parser.add_argument('--template', default=None, help='Path to Jinja2 HTML template')
     parser.add_argument('--output', default='report.png', help='Output file path (.html or .png/.jpg)')
+    parser.add_argument('--clean-temp', action='store_true', help='Delete temporary files after report generation')
     return parser.parse_args()
+
+
+def cleanup_temp_files(file_paths):
+    """删除临时文件"""
+    for path in file_paths:
+        if path and os.path.exists(path):
+            try:
+                os.remove(path)
+                print(f"Deleted temp file: {path}")
+            except OSError as e:
+                print(f"Warning: Failed to delete {path}: {e}")
 
 
 def load_json(file_path):
@@ -134,11 +146,33 @@ def main():
         
         # 转换为图片
         html_to_image(html_path, args.output)
+        
+        # 清理临时文件
+        if args.clean_temp:
+            # 获取 simplified_chat.txt 路径（从 stats.json 中读取）
+            simplified_text_path = stats.get('raw_text_path')
+            temp_files = [
+                html_path,           # 临时 HTML
+                args.stats,          # stats.json
+                args.ai_content,     # ai_content.json
+                simplified_text_path # simplified_chat.txt
+            ]
+            cleanup_temp_files(temp_files)
     else:
         # 仅生成 HTML
         with open(args.output, 'w', encoding='utf-8') as f:
             f.write(html_output)
         print(f"Report generated: {args.output}")
+        
+        # 清理临时文件（HTML 输出时不删除 HTML 本身）
+        if args.clean_temp:
+            simplified_text_path = stats.get('raw_text_path')
+            temp_files = [
+                args.stats,          # stats.json  
+                args.ai_content,     # ai_content.json
+                simplified_text_path # simplified_chat.txt
+            ]
+            cleanup_temp_files(temp_files)
 
 
 if __name__ == "__main__":
