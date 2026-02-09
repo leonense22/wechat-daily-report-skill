@@ -46,9 +46,16 @@ def is_night_time(hour):
 
 def generate_word_cloud_data(text_messages, top_n=60):
     words = []
-    stopwords = set(['的', '了', '我', '是', '你', '在', '他', '我们', '好', '去', '都', '就', '那', '有', '这', '也', '要', '吗', '啊', '吧', '呢', '哈', '哈哈', '哈哈哈', '图片', '表情', '动画表情'])
+    stopwords = set(['的', '了', '我', '是', '你', '在', '他', '我们', '好', '去', '都', '就', '那', '有', '这', '也', '要', '吗', '啊', '吧', '呢', '哈', '哈哈', '哈哈哈', '图片', '表情', '动画表情', '语音', '转文字', '语音转文字'])
     
-    combined_text = " ".join([m['content'] for m in text_messages])
+    # 合并文本时去除 [语音转文字] 前缀
+    contents = []
+    for m in text_messages:
+        content = m['content']
+        if content.startswith('[语音转文字] '):
+            content = content[7:]
+        contents.append(content)
+    combined_text = " ".join(contents)
     
     if JIEBA_AVAILABLE:
         # Use simple tag extraction or cut
